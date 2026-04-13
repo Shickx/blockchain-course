@@ -37,7 +37,7 @@ Manual tests were performed using Hardhat console:
 
 ## Screenshots
 
-- Deployment & transaction logs  
+- Transaction logs  
 - Balance checks in console  
 - Token transfer execution
 <img width="386" height="37" alt="Zrzut ekranu 2026-04-13 154314" src="https://github.com/user-attachments/assets/34c7a330-e317-411d-938f-9689e4b2a19f" />
