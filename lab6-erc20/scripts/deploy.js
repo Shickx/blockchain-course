@@ -8,12 +8,15 @@ async function main() {
   const MyToken = await ethers.getContractFactory("MyToken");
 
   const myToken = await MyToken.deploy(
-    ethers.parseEther("1000000")
+    ethers.parseUnits("1000000", 18)
   );
 
   await myToken.waitForDeployment();
 
   console.log("MyToken deployed to:", await myToken.getAddress());
+
+  const tx = myToken.deploymentTransaction();
+  console.log("TX:", tx.hash);
 }
 
 main().catch((error) => {
