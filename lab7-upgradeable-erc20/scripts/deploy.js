@@ -1,22 +1,19 @@
-const { ethers } = require("hardhat");
+const hre = require("hardhat");
 
 async function main() {
-  const [deployer] = await ethers.getSigners();
+  const { ethers, upgrades } = hre;
 
-  console.log("Deploying contract with account:", deployer.address);
+  const MyToken = await ethers.getContractFactory("MyTokenV1");
 
-  const MyToken = await ethers.getContractFactory("MyToken");
-
-  const myToken = await MyToken.deploy(
-    ethers.parseUnits("1000000", 18)
+  const token = await upgrades.deployProxy(
+    MyToken,
+    [ethers.parseEther("1000000")],
+    { initializer: "initialize" }
   );
 
-  await myToken.waitForDeployment();
+  await token.waitForDeployment();
 
-  console.log("MyToken deployed to:", await myToken.getAddress());
-
-  const tx = myToken.deploymentTransaction();
-  console.log("TX:", tx.hash);
+  console.log("Proxy deployed to:", await token.getAddress());
 }
 
 main().catch((error) => {
